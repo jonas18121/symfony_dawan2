@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<h1>Liste des jeux de société</h1>
+
+<p><a href="{{ path('board_game_add') }}">Créer un nouveau jeux</a></p>
+<ul>
+    {% for board_game in board_games %}
+    <li>
+        {{ board_game.name }}
+        <div>
+            {% for category in board_game.categories %}
+                {{ category.name }} {{ loop.last ? '': ', ' }}
+            {% endfor %}
+        </div>
+        <a  href="{{ path('board_game_show', { "id": board_game.id }) }}">
+            Voir
+        </a>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

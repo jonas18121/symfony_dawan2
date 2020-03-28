@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <a href="{{ path('board_game_index') }}">
+        Retour à la liste
+    </a>
+    <h1>{{ board_game.name }}</h1>
+    {% if board_game.description %}
+    <div>{{ board_game.description }}</div>
+    {% else %}
+    <div>Description en cours de rédaction</div>
+    {% endif %}
+    <dl>
+        <dt>Date de sortie</dt>
+        <dd>{{ board_game.releasedAt | date('d-m-Y') }}</dd>
+        {#
+        le composant PropertyAccessor essaye dans l'ordre:
+         - attribut releasedAt
+         - appeler la méthode releasedAt()
+         - appeler la méthode getReleasedAt()
+         - appeler la méthode isReleasedAt()
+         - appeler la méthode hasReleasedAt()
+        #}
+        <dt>À partir de</dt>
+        <dd>{{ board_game.ageGroup }} ans</dd>
+    </dl>
+    <div>{% for category in board_game.categories %}
+            {{ category.name }} {{ loop.last ? '': ', ' }}
+        {% endfor %}</div>
+    <a href="{{ path('board_game_edit', {id: board_game.id}) }}">Éditer</a>
+{% endblock %}
